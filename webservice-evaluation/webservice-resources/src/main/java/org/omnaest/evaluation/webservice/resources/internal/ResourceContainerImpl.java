@@ -23,13 +23,13 @@ import org.omnaest.evaluation.webservice.resources.ResourceContainer;
 import org.omnaest.utils.xml.JAXBMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 /**
  * @author Omnaest
  * @see ResourceAccessorPathParam
  */
-@Component
+@Service("resourceAccessorPathParam")
 @Scope("prototype")
 public class ResourceContainerImpl implements ResourceContainer
 {

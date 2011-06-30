@@ -20,6 +20,7 @@ import org.omnaest.evaluation.webservice.resources.ResourceAccessorPathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 /**
  * Every web service interface has to have an own implementation marked with {@link Component} even if there is a shared
@@ -29,7 +30,7 @@ import org.springframework.stereotype.Component;
  * @see ResourceAccessorBasic
  * @author Omnaest
  */
-@Component
+@Service
 @Scope("prototype")
 public class ResourceAccessorPathParamImpl implements ResourceAccessorPathParam
 {
