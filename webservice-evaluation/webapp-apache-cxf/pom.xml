@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+    xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>webservice-evaluation</artifactId>
+        <groupId>org.omnaest.evaluation</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <groupId>org.omnaest.evaluation</groupId>
+    <artifactId>webapp-apache-cxf</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>war</packaging>
+    <name>webapp-apache-cxf Maven Webapp</name>
+    <url>http://maven.apache.org</url>
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!-- <dependency> <groupId>org.apache.cxf</groupId> <artifactId>apache-cxf</artifactId> <version>${apache-cxf-version}</version> 
+            <type>pom</type> <optional>true</optional> </dependency> <dependency> <groupId>org.apache.cxf</groupId> <artifactId>cxf-rt-frontend-jaxrs</artifactId> 
+            <version>${apache.cxf.version}</version> </dependency> -->
+        <dependency>
+            <groupId>org.omnaest.evaluation</groupId>
+            <artifactId>webservice-resources</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <type>jar</type>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-bundle-jaxrs</artifactId>
+            <version>${apache.cxf.version}</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+    <build>
+        <finalName>webapp-apache-cxf</finalName>
+    </build>
+    <properties>
+        <apache.cxf.version>2.4.1</apache.cxf.version>
+    </properties>
+</project>
