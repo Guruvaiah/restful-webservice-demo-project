@@ -20,36 +20,58 @@ import static org.junit.Assert.assertEquals;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.omnaest.evaluation.webservice.resources.ResourceAccessorPathParam;
+import org.omnaest.evaluation.webservice.resources.ResourceAccessorQueryParam;
+import org.omnaest.evaluation.webservice.resources.ResourceArbitraryObjectGraph;
 import org.omnaest.evaluation.webservice.resources.ResourceContainer;
 import org.omnaest.utils.xml.JAXBMap;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = "classpath:rest-client.xml")
 public class ResourceFactoryTest
 {
-  private final static String URL_BASE = "http://localhost:8082/webapp-apache-cxf";
   
-  /*"http://localhost:8082/webapp-jersey";*/
-
+  /* ********************************************** Beans / Services ********************************************** */
+  @Autowired
+  protected ResourceContainer            resourceContainer            = null;
+  
+  @Autowired
+  protected ResourceAccessorPathParam    resourceAccessorPathParam    = null;
+  
+  @Autowired
+  protected ResourceAccessorQueryParam   resourceAccessorQueryParam   = null;
+  
+  @Autowired
+  protected ResourceArbitraryObjectGraph resourceArbitraryObjectGraph = null;
+  
+  /* ********************************************** Methods ********************************************** */
   @Before
   public void setUp() throws Exception
   {
+    //
+    Assert.assertNotNull( this.resourceContainer );
+    Assert.assertNotNull( this.resourceAccessorPathParam );
+    Assert.assertNotNull( this.resourceAccessorQueryParam );
+    Assert.assertNotNull( this.resourceArbitraryObjectGraph );
   }
   
   @Test
   public void testNewResourceContainer()
   {
     //
-    ResourceContainer resourceContainer = ResourceFactory.newResourceContainer( URL_BASE );
-    
-    //
     Map<String, String> map = new HashMap<String, String>();
     map.put( "key1", "value1" );
     map.put( "key2", "value2" );
     
     //
-    resourceContainer.setContent( JAXBMap.newInstance( map ) );
+    this.resourceContainer.setContent( JAXBMap.newInstance( map ) );
     
     //
     Map<String, String> content = resourceContainer.getContent();
@@ -62,13 +84,50 @@ public class ResourceFactoryTest
   public void testNewResourceAccessorPathParam()
   {
     //
-    ResourceAccessorPathParam resourceAccessorPathParam = ResourceFactory.newResourceAccessorPathParam( URL_BASE );
+    this.resourceAccessorPathParam.setValue( "firstKey", "firstValue" );
     
     //
-    resourceAccessorPathParam.setValue( "firstKey", "firstValue" );
+    assertEquals( this.resourceAccessorPathParam.getValue( "firstKey" ), "firstValue" );
+  }
+  
+  @Test
+  public void testNewResourceAccessorQueryParam()
+  {
+    //
+    String key = "some key";
+    String value = "some value";
+    
+    this.resourceAccessorQueryParam.setValue( key, value );
     
     //
-    assertEquals( resourceAccessorPathParam.getValue( "firstKey" ), "firstValue" );
+    assertEquals( "some value", this.resourceAccessorQueryParam.getValue( "some key" ) );
+  }
+  
+  @Test
+  public void testNewResourceAccessorArbitraryObjectGraph()
+  {
+    //
+    
+  }
+  
+  public void setResourceContainer( ResourceContainer resourceContainer )
+  {
+    this.resourceContainer = resourceContainer;
+  }
+  
+  public void setResourceAccessorPathParam( ResourceAccessorPathParam resourceAccessorPathParam )
+  {
+    this.resourceAccessorPathParam = resourceAccessorPathParam;
+  }
+  
+  public void setResourceArbitraryObjectGraph( ResourceArbitraryObjectGraph resourceArbitraryObjectGraph )
+  {
+    this.resourceArbitraryObjectGraph = resourceArbitraryObjectGraph;
+  }
+  
+  public void setResourceAccessorQueryParam( ResourceAccessorQueryParam resourceAccessorQueryParam )
+  {
+    this.resourceAccessorQueryParam = resourceAccessorQueryParam;
   }
   
 }

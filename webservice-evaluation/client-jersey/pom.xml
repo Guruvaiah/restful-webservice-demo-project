@@ -34,6 +34,5 @@
         </dependency>
     </dependencies>
     <properties>
-        <jersey.version>1.8</jersey.version>
     </properties>
 </project>

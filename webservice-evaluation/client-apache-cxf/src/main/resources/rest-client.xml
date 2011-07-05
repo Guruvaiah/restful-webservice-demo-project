@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:jaxrs="http://cxf.apache.org/jaxrs" xmlns:util="http://www.springframework.org/schema/util"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+		http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd">
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <value>classpath:rest-client.properties</value>
+        </property>
+    </bean>
+
+    <jaxrs:client id="ResourceAccessorPathParam" address="${url_base}"
+        serviceClass="org.omnaest.evaluation.webservice.resources.ResourceAccessorPathParam" inheritHeaders="true">
+        <jaxrs:headers>
+            <entry key="Accept" value="text/plain" />
+        </jaxrs:headers>
+    </jaxrs:client>
+
+    <jaxrs:client id="ResourceAccessorQueryParam" address="${url_base}"
+        serviceClass="org.omnaest.evaluation.webservice.resources.ResourceAccessorQueryParam" inheritHeaders="true">
+        <jaxrs:headers>
+            <entry key="Accept" value="text/plain" />
+        </jaxrs:headers>
+    </jaxrs:client>
+
+    <jaxrs:client id="ResourceArbitraryObjectGraph" address="${url_base}"
+        serviceClass="org.omnaest.evaluation.webservice.resources.ResourceArbitraryObjectGraph" inheritHeaders="true">
+        <jaxrs:headers>
+            <entry key="Accept" value="application/xml" />
+        </jaxrs:headers>
+    </jaxrs:client>
+
+    <jaxrs:client id="ResourceContainer" address="${url_base}"
+        serviceClass="org.omnaest.evaluation.webservice.resources.ResourceContainer" inheritHeaders="true">
+        <jaxrs:headers>
+            <entry key="Accept" value="application/xml" />
+        </jaxrs:headers>
+    </jaxrs:client>
+
+</beans>

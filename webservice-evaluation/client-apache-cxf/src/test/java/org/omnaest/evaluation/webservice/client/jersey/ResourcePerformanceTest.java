@@ -23,16 +23,38 @@ import javax.ws.rs.core.MediaType;
 import org.apache.cxf.jaxrs.client.WebClient;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.omnaest.evaluation.webservice.resources.ResourceAccessorPathParam;
+import org.omnaest.evaluation.webservice.resources.ResourceAccessorQueryParam;
 import org.omnaest.evaluation.webservice.resources.ResourceArbitraryObjectGraph;
+import org.omnaest.evaluation.webservice.resources.ResourceContainer;
 import org.omnaest.utils.io.XLSFile;
 import org.omnaest.utils.io.XLSFile.TableRow;
 import org.omnaest.utils.time.DurationCapture;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = "classpath:rest-client.xml")
 public class ResourcePerformanceTest
 {
-  private final static String URL_BASE = "http://localhost:8082/webapp-jersey";
   
+  /* ********************************************** Beans / Services ********************************************** */
+  @Autowired
+  protected ResourceContainer            resourceContainer            = null;
+  
+  @Autowired
+  protected ResourceAccessorPathParam    resourceAccessorPathParam    = null;
+  
+  @Autowired
+  protected ResourceAccessorQueryParam   resourceAccessorQueryParam   = null;
+  
+  @Autowired
+  protected ResourceArbitraryObjectGraph resourceArbitraryObjectGraph = null;
+  
+  /* ********************************************** Methods ********************************************** */
+
   @Before
   public void setUp() throws Exception
   {
@@ -42,15 +64,12 @@ public class ResourcePerformanceTest
   public void testNewResourceAccessorPathParam()
   {
     //
-    ResourceAccessorPathParam resourceAccessorPathParam = ResourceFactory.newResourceAccessorPathParam( URL_BASE );
-    
-    //
     DurationCapture durationCapture = DurationCapture.newInstance().startTimeMeasurement();
     
     int counter = 0;
     while ( durationCapture.getInterimTimeInMilliseconds() < 1000 )
     {
-      resourceAccessorPathParam.setValue( "firstKey", "firstValue" );
+      this.resourceAccessorPathParam.setValue( "firstKey", "firstValue" );
       counter++;
     }
     long durationInMilliseconds = durationCapture.stopTimeMeasurement().getDurationInMilliseconds();
@@ -64,9 +83,6 @@ public class ResourcePerformanceTest
   @Test
   public void testNewResourceArbitraryObjectGraph()
   {
-    //
-    ResourceArbitraryObjectGraph resourceArbitraryObjectGraph = ResourceFactory.newResourceArbitraryObjectGraph( URL_BASE );
-    
     //
     XLSFile xlsFile = new XLSFile( new File( "performance.xls" ) );
     {
@@ -85,14 +101,14 @@ public class ResourcePerformanceTest
       for ( MediaType acceptType : Arrays.asList( MediaType.APPLICATION_XML_TYPE, MediaType.APPLICATION_JSON_TYPE ) )
       {
         //
-        WebClient.client( resourceArbitraryObjectGraph ).accept( acceptType );
+        WebClient.client( this.resourceArbitraryObjectGraph ).accept( acceptType );
         
         //
         DurationCapture durationCapture = DurationCapture.newInstance().startTimeMeasurement();
         int counter = 0;
         while ( durationCapture.getInterimTimeInMilliseconds() < 5000 )
         {
-          resourceArbitraryObjectGraph.getArbitraryObjectGraph( graphDept );
+          this.resourceArbitraryObjectGraph.getArbitraryObjectGraph( graphDept );
           counter++;
         }
         long durationInMilliseconds = durationCapture.stopTimeMeasurement().getDurationInMilliseconds();
@@ -127,5 +143,25 @@ public class ResourcePerformanceTest
     
     //
     xlsFile.store();
+  }
+  
+  public void setResourceContainer( ResourceContainer resourceContainer )
+  {
+    this.resourceContainer = resourceContainer;
+  }
+  
+  public void setResourceAccessorPathParam( ResourceAccessorPathParam resourceAccessorPathParam )
+  {
+    this.resourceAccessorPathParam = resourceAccessorPathParam;
+  }
+  
+  public void setResourceAccessorQueryParam( ResourceAccessorQueryParam resourceAccessorQueryParam )
+  {
+    this.resourceAccessorQueryParam = resourceAccessorQueryParam;
+  }
+  
+  public void setResourceArbitraryObjectGraph( ResourceArbitraryObjectGraph resourceArbitraryObjectGraph )
+  {
+    this.resourceArbitraryObjectGraph = resourceArbitraryObjectGraph;
   }
 }

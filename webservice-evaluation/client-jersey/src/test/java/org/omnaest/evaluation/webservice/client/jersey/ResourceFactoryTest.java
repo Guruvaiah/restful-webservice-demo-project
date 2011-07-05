@@ -31,7 +31,7 @@ import org.omnaest.utils.xml.JAXBMap;
  */
 public class ResourceFactoryTest
 {
-  private final static String URL_BASE = "http://localhost:8082/";
+  private final static String URL_BASE = "http://localhost:8082/webapp-jersey";
   
   @Before
   public void setUp() throws Exception
@@ -42,7 +42,7 @@ public class ResourceFactoryTest
   public void testNewResourceContainer()
   {
     //
-    ResourceContainer resourceContainer = ResourceFactory.newResourceContainer( URL_BASE + "ResourceContainer" );
+    ResourceContainer resourceContainer = ResourceFactory.newResourceContainer( URL_BASE + "/ResourceContainer" );
     
     //
     Map<String, String> map = new HashMap<String, String>();

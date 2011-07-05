@@ -15,6 +15,7 @@
  ******************************************************************************/
 package org.omnaest.evaluation.webservice.client.jersey;
 
+import org.omnaest.evaluation.webservice.hypermedia.ResourceContainerHypermediaController;
 import org.omnaest.evaluation.webservice.resources.ResourceContainer;
 
 import com.sun.jersey.api.client.Client;
@@ -26,7 +27,6 @@ import com.sun.jersey.api.client.Client;
  */
 public class ResourceFactory
 {
-  private final static String URL_BASE = "http://localhost:8082/webapp-jersey";
   
   /**
    * Returns an proxy for {@link ResourceContainer}
@@ -40,7 +40,7 @@ public class ResourceFactory
     Client client = new Client();
     
     //
-    ResourceContainer resourceContainer = client.view( uri, ResourceContainer.class );
+    ResourceContainer resourceContainer = client.view( uri, ResourceContainerHypermediaController.class );
     
     //
     return resourceContainer;

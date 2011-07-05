@@ -13,39 +13,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
-package org.omnaest.evaluation.webservice.resources;
+package org.omnaest.evaluation.webservice.hypermedia;
 
 import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.MatrixParam;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import org.omnaest.evaluation.webservice.datastore.DataStore;
+import org.omnaest.evaluation.webservice.resources.ResourceContainer;
+import org.omnaest.evaluation.webservice.resources.internal.ResourceContainerImpl;
 import org.omnaest.utils.xml.JAXBMap;
 
-/**
- * Container for direct access of the {@link DataStore} and to access resources via subresource location.
- * 
- * @author Omnaest
- */
-@Path("ResourceContainer")
-public interface ResourceContainer
+import com.sun.jersey.core.hypermedia.Action;
+import com.sun.jersey.core.hypermedia.HypermediaController;
+import com.sun.jersey.core.hypermedia.HypermediaController.LinkType;
+
+@HypermediaController(model = ResourceContainer.class, linkType = LinkType.LINK_HEADERS)
+public class ResourceContainerHypermediaController extends ResourceContainerImpl
 {
   
-  @GET
-  @Produces(MediaType.APPLICATION_XML)
-  public JAXBMap<String, String> getContent();
-  
-  @PUT
   @Consumes(MediaType.APPLICATION_XML)
-  @MatrixParam("param")
-  public void setContent( JAXBMap<String, String> map );
+  @Action("setContent")
+  @Override
+  public void setContent( JAXBMap<String, String> map )
+  {
+    super.setContent( map );
+  }
   
-  @Path("ResourceAccessorPathParam")
-  @GET
-  public ResourceAccessorPathParam resourceAccessorPathParam();
+  @Action("getContent")
+  @Override
+  public JAXBMap<String, String> getContent()
+  {
+    return super.getContent();
+  }
   
 }

@@ -15,8 +15,6 @@
  ******************************************************************************/
 package org.omnaest.evaluation.webservice.resources.internal;
 
-import java.util.Map;
-
 import org.omnaest.evaluation.webservice.datastore.DataStore;
 import org.omnaest.evaluation.webservice.resources.ResourceAccessorPathParam;
 import org.omnaest.evaluation.webservice.resources.ResourceContainer;
@@ -35,7 +33,7 @@ public class ResourceContainerImpl implements ResourceContainer
 {
   /* ********************************************** Variables ********************************************** */
   @Autowired
-  protected DataStore        dataStore        = null;
+  protected DataStore                 dataStore                 = null;
   
   @Autowired
   protected ResourceAccessorPathParam resourceAccessorPathParam = null;
@@ -43,7 +41,7 @@ public class ResourceContainerImpl implements ResourceContainer
   /* ********************************************** Methods ********************************************** */
 
   @Override
-  public void setContent( Map<String, String> map )
+  public void setContent( JAXBMap<String, String> map )
   {
     this.dataStore.setAll( map );
   }
@@ -65,7 +63,7 @@ public class ResourceContainerImpl implements ResourceContainer
   }
   
   @Override
-  public Map<String, String> getContent()
+  public JAXBMap<String, String> getContent()
   {
     // 
     JAXBMap<String, String> jaxbMap = JAXBMap.newInstance( this.dataStore.getAll() );
