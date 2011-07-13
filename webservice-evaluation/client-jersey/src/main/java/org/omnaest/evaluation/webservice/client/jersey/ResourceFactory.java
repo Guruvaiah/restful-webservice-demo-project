@@ -38,7 +38,7 @@ public class ResourceFactory
   {
     //
     Client client = new Client();
-    
+        
     //
     ResourceContainer resourceContainer = client.view( uri, ResourceContainerHypermediaController.class );
     

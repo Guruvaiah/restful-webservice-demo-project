@@ -11,32 +11,18 @@
         </property>
     </bean>
 
-    <jaxrs:client id="ResourceAccessorPathParam" address="${url_base}"
-        serviceClass="org.omnaest.evaluation.webservice.resources.ResourceAccessorPathParam" inheritHeaders="true">
-        <jaxrs:headers>
-            <entry key="Accept" value="text/plain" />
-        </jaxrs:headers>
-    </jaxrs:client>
+    <bean class="org.omnaest.evaluation.webservice.client.cxf.ResourceFactory" scope="singleton">
+        <property name="address" value="${url_base}"/>
+        <property name="prepareMediaType" value="true"/>
+    </bean>
 
-    <jaxrs:client id="ResourceAccessorQueryParam" address="${url_base}"
-        serviceClass="org.omnaest.evaluation.webservice.resources.ResourceAccessorQueryParam" inheritHeaders="true">
-        <jaxrs:headers>
-            <entry key="Accept" value="text/plain" />
-        </jaxrs:headers>
-    </jaxrs:client>
-
-    <jaxrs:client id="ResourceArbitraryObjectGraph" address="${url_base}"
-        serviceClass="org.omnaest.evaluation.webservice.resources.ResourceArbitraryObjectGraph" inheritHeaders="true">
-        <jaxrs:headers>
-            <entry key="Accept" value="application/xml" />
-        </jaxrs:headers>
-    </jaxrs:client>
-
-    <jaxrs:client id="ResourceContainer" address="${url_base}"
-        serviceClass="org.omnaest.evaluation.webservice.resources.ResourceContainer" inheritHeaders="true">
-        <jaxrs:headers>
-            <entry key="Accept" value="application/xml" />
-        </jaxrs:headers>
-    </jaxrs:client>
+    <!-- <jaxrs:client id="ResourceAccessorPathParam" address="${url_base}" serviceClass="org.omnaest.evaluation.webservice.resources.ResourceAccessorPathParam" 
+        inheritHeaders="true"> <jaxrs:headers> <entry key="Accept" value="text/plain" /> </jaxrs:headers> </jaxrs:client> <jaxrs:client 
+        id="ResourceAccessorQueryParam" address="${url_base}" serviceClass="org.omnaest.evaluation.webservice.resources.ResourceAccessorQueryParam" 
+        inheritHeaders="true"> <jaxrs:headers> <entry key="Accept" value="text/plain" /> </jaxrs:headers> </jaxrs:client> <jaxrs:client 
+        id="ResourceArbitraryObjectGraph" address="${url_base}" serviceClass="org.omnaest.evaluation.webservice.resources.ResourceArbitraryObjectGraph" 
+        inheritHeaders="true"> <jaxrs:headers> <entry key="Accept" value="application/xml" /> </jaxrs:headers> </jaxrs:client> <jaxrs:client 
+        id="ResourceContainer" address="${url_base}" serviceClass="org.omnaest.evaluation.webservice.resources.ResourceContainer" 
+        inheritHeaders="true"> <jaxrs:headers> <entry key="Accept" value="application/xml" /> </jaxrs:headers> </jaxrs:client> -->
 
 </beans>

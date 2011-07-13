@@ -15,9 +15,12 @@
  ******************************************************************************/
 package org.omnaest.evaluation.webservice.graph;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -26,13 +29,18 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Omnaest
  */
 @XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class ArbitraryObjectGraph
 {
   /* ********************************************** Variables ********************************************** */
-  protected List<ArbitraryObjectGraph> arbitraryObjectGraphList = new ArrayList<ArbitraryObjectGraph>();
+  @XmlElement
+  protected ArbitraryObjectGraph arbitraryObjectGraph1 = null;
+  
+  @XmlElement
+  protected ArbitraryObjectGraph arbitraryObjectGraph2 = null;
   
   /* ********************************************** Methods ********************************************** */
-
+  
   /**
    * Generates an object binary tree with 2^graphDept objects at the bottom layer and one parent for two child objects for each
    * layer above.
@@ -47,13 +55,25 @@ public class ArbitraryObjectGraph
     //
     if ( graphDept > 0 )
     {
-      this.arbitraryObjectGraphList.add( new ArbitraryObjectGraph( graphDept - 1 ) );
-      this.arbitraryObjectGraphList.add( new ArbitraryObjectGraph( graphDept - 1 ) );
+      this.arbitraryObjectGraph1 = new ArbitraryObjectGraph( graphDept - 1 );
+      this.arbitraryObjectGraph2 = new ArbitraryObjectGraph( graphDept - 1 );
     }
   }
   
+  /**
+   * 
+   */
   public ArbitraryObjectGraph()
   {
     super();
   }
+  
+  /**
+   * @return
+   */
+  public List<ArbitraryObjectGraph> getArbitraryObjectGraphList()
+  {
+    return Arrays.asList( this.arbitraryObjectGraph1, this.arbitraryObjectGraph2 );
+  }
+  
 }

@@ -32,15 +32,15 @@ import org.omnaest.utils.xml.JAXBMap;
  * @author Omnaest
  */
 @Path("ResourceContainer")
+@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+@Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 public interface ResourceContainer
 {
   
   @GET
-  @Produces(MediaType.APPLICATION_XML)
   public JAXBMap<String, String> getContent();
   
   @PUT
-  @Consumes(MediaType.APPLICATION_XML)
   @MatrixParam("param")
   public void setContent( JAXBMap<String, String> map );
   
