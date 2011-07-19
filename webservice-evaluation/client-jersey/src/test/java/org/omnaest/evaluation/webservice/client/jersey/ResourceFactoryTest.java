@@ -16,14 +16,20 @@
 package org.omnaest.evaluation.webservice.client.jersey;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.ws.rs.core.MediaType;
+
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.omnaest.evaluation.webservice.resources.ResourceContainer;
 import org.omnaest.utils.xml.JAXBMap;
+
+import com.sun.jersey.api.client.WebResource;
 
 /**
  * @see ResourceFactory
@@ -31,18 +37,25 @@ import org.omnaest.utils.xml.JAXBMap;
  */
 public class ResourceFactoryTest
 {
-  private final static String URL_BASE = "http://localhost:8082/webapp-jersey";
+  /* ********************************************** Constants ********************************************** */
+  private final static String URL_BASE        = "http://localhost:8866/webapp-jersey"; //"http://localhost:8082/webapp-jersey";
+                                                                                       
+  /* ********************************************** Variables ********************************************** */
+  protected ResourceFactory   resourceFactory = new ResourceFactory( URL_BASE );
+  
+  /* ********************************************** Methods ********************************************** */
   
   @Before
   public void setUp() throws Exception
   {
   }
   
+  @Ignore
   @Test
-  public void testNewResourceContainer()
+  public void testNewResourceContainerWithHypermediaController()
   {
-    //
-    ResourceContainer resourceContainer = ResourceFactory.newResourceContainer( URL_BASE + "/ResourceContainer" );
+    //    
+    ResourceContainer resourceContainer = this.resourceFactory.newResourceContainer();
     
     //
     Map<String, String> map = new HashMap<String, String>();
@@ -57,6 +70,21 @@ public class ResourceFactoryTest
     
     //
     assertEquals( map, content );
+  }
+  
+  @Test
+  public void testNewWebResource()
+  {
+    //
+    WebResource webResource = this.resourceFactory.newWebResource( "ResourceArbitraryObjectGraph" );
+    
+    //
+    webResource.accept( MediaType.APPLICATION_XML_TYPE );
+    webResource.type( MediaType.APPLICATION_XML_TYPE );
+    
+    //
+    String resourceArbitraryObjectGraphString = webResource.get( String.class );
+    assertNotNull( resourceArbitraryObjectGraphString );
   }
   
 }

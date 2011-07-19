@@ -19,6 +19,9 @@ import org.omnaest.evaluation.webservice.hypermedia.ResourceContainerHypermediaC
 import org.omnaest.evaluation.webservice.resources.ResourceContainer;
 
 import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.WebResource;
+import com.sun.jersey.api.client.config.ClientConfig;
+import com.sun.jersey.api.client.config.DefaultClientConfig;
 
 /**
  * Factory for the resource classes.
@@ -27,22 +30,55 @@ import com.sun.jersey.api.client.Client;
  */
 public class ResourceFactory
 {
+  /* ********************************************** Variables ********************************************** */
+  protected String address = null;
+  
+  /* ********************************************** Methods ********************************************** */
+  
+  /**
+   * @param address
+   */
+  public ResourceFactory( String address )
+  {
+    super();
+    this.address = address;
+  }
   
   /**
    * Returns an proxy for {@link ResourceContainer}
    * 
-   * @param uri
    * @return
    */
-  public static ResourceContainer newResourceContainer( String uri )
+  public ResourceContainer newResourceContainer()
   {
     //
     Client client = new Client();
-        
+    
     //
-    ResourceContainer resourceContainer = client.view( uri, ResourceContainerHypermediaController.class );
+    ResourceContainer resourceContainer = client.view( this.address, ResourceContainerHypermediaController.class );
     
     //
     return resourceContainer;
+  }
+  
+  /**
+   * @see WebResource
+   * @param resourcePath
+   * @return
+   */
+  public WebResource newWebResource( String resourcePath )
+  {
+    //
+    WebResource retval = null;
+    
+    //
+    ClientConfig clientConfig = new DefaultClientConfig();
+    
+    //
+    Client client = Client.create( clientConfig );
+    retval = client.resource( this.address + "/" + resourcePath );
+    
+    //
+    return retval;
   }
 }
