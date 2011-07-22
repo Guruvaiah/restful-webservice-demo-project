@@ -38,10 +38,10 @@ import com.sun.jersey.api.client.WebResource;
 public class ResourceFactoryTest
 {
   /* ********************************************** Constants ********************************************** */
-  private final static String URL_BASE        = "http://localhost:8866/webapp-jersey"; //"http://localhost:8082/webapp-jersey";
-                                                                                       
+  public final static String URL_BASE        = "http://localhost:8866/webapp-jersey"; //"http://localhost:8082/webapp-jersey";
+                                                                                      
   /* ********************************************** Variables ********************************************** */
-  protected ResourceFactory   resourceFactory = new ResourceFactory( URL_BASE );
+  protected ResourceFactory  resourceFactory = new ResourceFactory( URL_BASE );
   
   /* ********************************************** Methods ********************************************** */
   
@@ -83,7 +83,7 @@ public class ResourceFactoryTest
     webResource.type( MediaType.APPLICATION_XML_TYPE );
     
     //
-    String resourceArbitraryObjectGraphString = webResource.get( String.class );
+    String resourceArbitraryObjectGraphString = webResource.queryParam( "graphDept", "5" ).get( String.class );
     assertNotNull( resourceArbitraryObjectGraphString );
   }
   
