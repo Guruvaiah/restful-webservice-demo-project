@@ -78,13 +78,6 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>javax.persistence</groupId>
-            <artifactId>persistence-api</artifactId>
-            <version>1.0-rev-1</version>
-            <type>jar</type>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
             <groupId>org.omnaest.utils</groupId>
             <artifactId>utils-apl-derived</artifactId>
             <version>0.0.1-SNAPSHOT</version>
