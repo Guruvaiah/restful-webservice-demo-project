@@ -38,7 +38,7 @@ public class ResourceAccessorQueryParamImpl implements ResourceAccessorQueryPara
   protected DataStore dataStore = null;
   
   /* ********************************************** Methods ********************************************** */
-
+  
   protected void setDataStore( DataStore dataStore )
   {
     this.dataStore = dataStore;

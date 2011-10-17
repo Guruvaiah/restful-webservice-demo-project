@@ -57,7 +57,7 @@ public class ResourcePerformanceTest
     int counter = 0;
     while ( durationCapture.getInterimTimeInMilliseconds() < 1000 )
     {
-      this.resourceFactory.newResourceAccessorQueryParam().setValue( "firstKey", "firstValue" );
+      this.resourceFactory.newResourceAccessorQueryParam().setValue( "firstKey", "value" );
       counter++;
     }
     long durationInMilliseconds = durationCapture.stopTimeMeasurement().getDurationInMilliseconds();

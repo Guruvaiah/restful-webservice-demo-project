@@ -34,6 +34,7 @@ import javax.ws.rs.core.MediaType;
 @Consumes(MediaType.TEXT_PLAIN)
 public interface ResourceAccessorQueryParam
 {
+  
   /**
    * Gets a previously saved value for a given key. The key is determined by the last token of the uri.
    * 

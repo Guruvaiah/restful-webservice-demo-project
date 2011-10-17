@@ -32,6 +32,7 @@ import org.omnaest.evaluation.webservice.graph.ArbitraryObjectGraph;
 import org.omnaest.evaluation.webservice.resources.ResourceAccessorPathParam;
 import org.omnaest.evaluation.webservice.resources.ResourceAccessorQueryParam;
 import org.omnaest.evaluation.webservice.resources.ResourceArbitraryObjectGraph;
+import org.omnaest.evaluation.webservice.resources.ResourceArbitraryObjectGraph.Parameter;
 import org.omnaest.evaluation.webservice.resources.ResourceContainer;
 import org.omnaest.utils.xml.JAXBMap;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -147,12 +148,11 @@ public class ResourceFactoryTest
   {
     //
     String key = "some key";
-    String value = "some value";
     
-    this.resourceAccessorQueryParam.setValue( key, value );
+    this.resourceAccessorQueryParam.setValue( key, "three" );
     
     //
-    assertEquals( "some value", this.resourceAccessorQueryParam.getValue( "some key" ) );
+    assertEquals( "three", this.resourceAccessorQueryParam.getValue( "some key" ) );
   }
   
   @Test
@@ -166,6 +166,22 @@ public class ResourceFactoryTest
       ArbitraryObjectGraph objectGraph = this.resourceArbitraryObjectGraph.getArbitraryObjectGraph( graphDept );
       assertNotNull( objectGraph );
       assertEquals( 2, objectGraph.getArbitraryObjectGraphList().size() );
+      
+    }
+  }
+  
+  @Test
+  public void testEnumerationXML()
+  {
+    //
+    {
+      //
+      WebClient.client( this.resourceArbitraryObjectGraph ).reset();
+      WebClient.client( this.resourceArbitraryObjectGraph ).accept( MediaType.APPLICATION_XML_TYPE );
+      
+      //
+      Parameter parameter = this.resourceArbitraryObjectGraph.getParameter( Parameter.THREE );
+      assertEquals( Parameter.THREE, parameter );
     }
   }
   

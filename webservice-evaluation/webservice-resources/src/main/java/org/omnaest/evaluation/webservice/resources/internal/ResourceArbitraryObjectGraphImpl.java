@@ -44,4 +44,10 @@ public class ResourceArbitraryObjectGraphImpl implements ResourceArbitraryObject
   {
     return new ArbitraryObjectGraph( graphDept );
   }
+  
+  @Override
+  public Parameter getParameter( Parameter parameter )
+  {
+    return parameter;
+  }
 }
