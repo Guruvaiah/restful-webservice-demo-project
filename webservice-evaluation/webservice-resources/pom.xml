@@ -80,7 +80,7 @@
         <dependency>
             <groupId>org.omnaest.utils</groupId>
             <artifactId>utils-apl-derived</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>0.1.4-SNAPSHOT</version>
             <type>jar</type>
             <scope>compile</scope>
         </dependency>

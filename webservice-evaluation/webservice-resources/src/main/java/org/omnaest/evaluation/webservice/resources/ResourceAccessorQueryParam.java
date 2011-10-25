@@ -24,6 +24,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import org.omnaest.utils.structure.element.ElementHolder;
+
 /**
  * This resource uses {@link QueryParam} annotations to retrieve the method parameters.
  * 
@@ -54,6 +56,11 @@ public interface ResourceAccessorQueryParam
    */
   @PUT
   public void setValue( @QueryParam("key") String key, String value );
+  
+  @PUT
+  @Path("xml")
+  @Consumes(MediaType.APPLICATION_XML)
+  public void setValueXML( @QueryParam("key") String key, ElementHolder<String> value );
   
   /**
    * Deletes the stored value.

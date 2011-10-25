@@ -17,6 +17,7 @@ package org.omnaest.evaluation.webservice.resources.internal;
 
 import org.omnaest.evaluation.webservice.datastore.DataStore;
 import org.omnaest.evaluation.webservice.resources.ResourceAccessorQueryParam;
+import org.omnaest.utils.structure.element.ElementHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -61,4 +62,11 @@ public class ResourceAccessorQueryParamImpl implements ResourceAccessorQueryPara
   {
     this.dataStore.put( key, null );
   }
+  
+  @Override
+  public void setValueXML( String key, ElementHolder<String> value )
+  {
+    this.setValue( key, value.getElement() );
+  }
+  
 }

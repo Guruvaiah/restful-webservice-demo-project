@@ -26,7 +26,11 @@ import javax.ws.rs.core.MediaType;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.omnaest.evaluation.webservice.resources.ResourceAccessorPathParam;
+import org.omnaest.evaluation.webservice.resources.ResourceAccessorQueryParam;
 import org.omnaest.evaluation.webservice.resources.ResourceContainer;
+import org.omnaest.utils.structure.element.ElementHolder;
+import org.omnaest.utils.webservice.rest.RestClientFactoryJersey;
 import org.omnaest.utils.xml.JAXBMap;
 
 import com.sun.jersey.api.client.WebResource;
@@ -50,7 +54,7 @@ public class ResourceFactoryTest
   {
   }
   
-  @Ignore
+  @Ignore("This does not work yet")
   @Test
   public void testNewResourceContainerWithHypermediaController()
   {
@@ -73,6 +77,24 @@ public class ResourceFactoryTest
   }
   
   @Test
+  public void testRegularJerseyWebResource()
+  {
+    //
+    WebResource webResource = this.resourceFactory.newWebResource( "ResourceAccessorPathParam" );
+    
+    //
+    webResource.accept( MediaType.TEXT_PLAIN );
+    webResource.type( MediaType.TEXT_PLAIN );
+    
+    //
+    webResource = webResource.path( "key5" );
+    
+    webResource.put( "value5" );
+    
+  }
+  
+  @Test
+  //@Ignore("working but use proxy instead")
   public void testNewWebResource()
   {
     //
@@ -85,6 +107,36 @@ public class ResourceFactoryTest
     //
     String resourceArbitraryObjectGraphString = webResource.queryParam( "graphDept", "5" ).get( String.class );
     assertNotNull( resourceArbitraryObjectGraphString );
+  }
+  
+  @Test
+  public void testProxyPathParam()
+  {
+    RestClientFactoryJersey restClientFactoryJersey = new RestClientFactoryJersey( URL_BASE );
+    
+    ResourceAccessorPathParam resourceAccessorPathParam = restClientFactoryJersey.newRestClient( ResourceAccessorPathParam.class );
+    assertNotNull( resourceAccessorPathParam );
+    
+    resourceAccessorPathParam.setValue( "key1", "value1" );
+    
+    String value = resourceAccessorPathParam.getValue( "key1" );
+    assertNotNull( value );
+    assertEquals( "value1", value );
+  }
+  
+  @Test
+  public void testProxyQueryParam()
+  {
+    RestClientFactoryJersey restClientFactoryJersey = new RestClientFactoryJersey( URL_BASE );
+    
+    ResourceAccessorQueryParam resourceAccessorQueryParam = restClientFactoryJersey.newRestClient( ResourceAccessorQueryParam.class );
+    assertNotNull( resourceAccessorQueryParam );
+    
+    resourceAccessorQueryParam.setValueXML( "key2", new ElementHolder<String>( "value2" ) );
+    
+    String value = resourceAccessorQueryParam.getValue( "key2" );
+    assertNotNull( value );
+    assertEquals( "value2", value );
   }
   
 }

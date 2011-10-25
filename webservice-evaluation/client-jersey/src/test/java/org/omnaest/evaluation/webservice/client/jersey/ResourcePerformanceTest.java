@@ -22,8 +22,6 @@ import javax.ws.rs.core.MediaType;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.omnaest.utils.io.XLSFile;
-import org.omnaest.utils.io.XLSFile.TableRow;
 import org.omnaest.utils.time.DurationCapture;
 
 import com.sun.jersey.api.client.WebResource;
